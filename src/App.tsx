@@ -1,26 +1,47 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Menu } from './menu'
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const LoggedIn = ({name="Användare"}) => {
+ return (
+ <div>
+    Välkommen {name}!
+ </div>
+  )
+}
+
+const LoggedOut = () =>
+<div>Välkommen gäst</div>
+
+
+
+class App extends React.Component {
+
+state = {
+  loggedin: true
+    }
+
+
+toggleLoggedIn = () => {
+  this.setState({
+    loggedin: !this.state.loggedin
+  })
+}
+
+  render() {
+    const { name="user" }= {...this.props};
+    return (
+    <div>
+      <Menu />
+      {this.state.loggedin ? <LoggedIn name={name} /> : <LoggedOut />}
+      
+      <button onClick={this.toggleLoggedIn}>Logga in/ut</button>
+      
+      </div>
+      )
+  }
 }
 
 export default App;
